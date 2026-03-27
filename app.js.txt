@@ -1,0 +1,33 @@
+let balance = 12.50;
+
+let tasks = [
+    { id: 1, title: "Join Telegram", reward: 0.05 },
+    { id: 2, title: "Join Group", reward: 0.03 },
+    { id: 3, title: "Follow X", reward: 0.04 }
+];
+
+function updateBalanceUI() {
+    document.getElementById("balanceAmount").innerText = balance.toFixed(2);
+}
+
+function renderTasks() {
+    const container = document.getElementById("taskListContainer");
+
+    container.innerHTML = tasks.map(task => `
+        <div class="task-card">
+            <p>${task.title}</p>
+            <button onclick="completeTask(${task.id})" class="bg-blue-500 px-3 py-1 rounded mt-2">
+                Earn ${task.reward} USDT
+            </button>
+        </div>
+    `).join('');
+}
+
+function completeTask(id) {
+    const task = tasks.find(t => t.id === id);
+    balance += task.reward;
+    updateBalanceUI();
+}
+
+updateBalanceUI();
+renderTasks();
